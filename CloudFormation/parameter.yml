@@ -1,0 +1,37 @@
+Parameters:
+  VPCID:
+    Description: Name of an existing VPC
+    Type: AWS::EC2::VPC::Id
+  KeyName:
+    Description: Name of an existing EC2 KeyPair to enable SSH access to the instance
+    Type: AWS::EC2::KeyPair::KeyName
+    ConstraintDescription: must be the name of an existing EC2 KeyPair.
+  InstanceType:
+    Description: EC2 instance type
+    Type: String
+    Default: t2.medium
+    AllowedValues:
+      - t2.medium
+      - t2.large
+  AccessLocation:
+    Description: The IP address range that can be used to access to the EC2 instances
+    Type: String
+Resources:
+  EC2Instance:
+    Type: AWS::EC2::Instance
+    Properties:
+      InstanceType: !Ref 'InstanceType'
+      SecurityGroups:
+        - !Ref 'InstanceSecurityGroup'
+      KeyName: !Ref 'KeyName'
+      ImageId: !Ref 'ImageId'   
+  InstanceSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      VpcId: !Ref VPCID
+      GroupDescription: Enable SSH 
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: '22'
+          ToPort: '22'
+          CidrIp: !Ref 'AccessLocation'

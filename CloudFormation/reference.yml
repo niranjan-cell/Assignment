@@ -1,0 +1,39 @@
+Resources:
+  rpt04:
+    Type: 'AWS::EC2::Instance'
+    Properties:
+      AvailabilityZone: us-west-1
+      InstanceType: t2.large
+      ImageId: ami-0cc5ea3dde5301489
+      Tags:
+        - Key: "Name"
+          Value: "RPT-04 (W2K16)"
+      KeyName: Key_2020
+      SecurityGroupIds: 
+        - sg-f2bcJmn9
+      SubnetId: subnet-19234d70 
+      BlockDeviceMappings:
+        - DeviceName: /dev/sda1
+          Ebs:
+            VolumeSize: 100
+            DeleteOnTermination: true
+      Volumes:
+        -
+         Device: xvdb
+         VolumeId: !Ref rpt04appvolume
+    Metadata:
+      'AWS::CloudFormation::Designer':
+        id: 357656a6-846b-4674-b06a-22901916ff91
+
+   rpt04appvolume:
+    Type: 'AWS::EC2::Volume'
+    Properties:
+      AvailabilityZone: us-west-1
+      Size: 100
+      VolumeType: gp2
+      Tags:
+       - Key: Name
+         Value: RPT-04-APP
+    Metadata:
+      'AWS::CloudFormation::Designer':
+        id: 3340c328-2324-42e5-bd11-b3c1d1f41a09

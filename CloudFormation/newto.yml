@@ -1,0 +1,51 @@
+AWSTemplateFormatVersion: 2010-09-09
+Metadata:
+  'AWS::CloudFormation::Designer':
+    fac22654-2e8d-43fc-a1f5-4f82922f6c31:
+      size:
+        width: 60
+        height: 60
+      position:
+        x: 331
+        'y': 121
+      z: 0
+Parameters:
+  InstanceTypeParameter:
+    Type: 'String'
+    Default: 't2.micro'
+    AllowedValues:
+      - 't2.micro'
+      - 't2.medium'
+      - 't3.micro'
+    Description: 'Enter t2.micro, t2.medium, or t3.micro. Default is t2.micro.'
+  VPCID:
+    Type: 'AWS::EC2::VPC::Id'
+Resources:
+  EC2I3CSLN:
+    Type: 'AWS::EC2::Instance'
+    Properties:
+      AvailabilityZone: 'us-east-1a'
+      InstanceType: 
+        Ref: InstanceTypeParameter
+      ImageId: 'ami-0022f774911c1d690'
+      Tags:
+        - Key: "Name"
+          Value: "ec2-with-some-config"
+      SecurityGroupIds:
+        Ref: MySG
+      KeyName: ram
+      Volumes:
+        - Device: xvdb
+          VolumeId: !Ref rpt04appvolume
+  rpt04appvolume:
+    Type: 'AWS::EC2::Volume'
+    Properties:
+      AvailabilityZone: 'us-east-1a'
+      Size: 20
+      VolumeType: gp2
+      Tags:
+        - Key: Name
+          Value: 'attach-volume'
+    Metadata:
+      'AWS::CloudFormation::Designer':
+        id: fac22654-2e8d-43fc-a1f5-4f82922f6c31
