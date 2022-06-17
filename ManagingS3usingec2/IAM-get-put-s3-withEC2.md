@@ -37,7 +37,7 @@ s3 = boto3.resource('s3')
 s3.meta.client.upload_file("text2.txt","testingwithec2permission","text.txt")
 [ec2-user@niranjan ~]$ python3 putobject.py
 ```
-![before](Screenshot%20(97).png)
+![before](https://github.com/niranjan-cell/Assignment/blob/6a09231cce91a896bac6439f2e2e23685d5eed26/Screenshot%20(97).png)
 >putobject.py
 ``` python
 import boto3
@@ -45,7 +45,7 @@ s3 = boto3.resource('s3')
 #s3.meta.client.upload_file("object_name","Bucket_name","file_name")
 s3.meta.client.upload_file("text2.txt","testingwithec2permission","text.txt")
 ```
-![after put](Screenshot%20(98).png)
+![after put](https://github.com/niranjan-cell/Assignment/blob/6a09231cce91a896bac6439f2e2e23685d5eed26/Screenshot%20(98).png)
 getobject history
 ```
 [ec2-user@niranjan ~]$ ls
@@ -67,4 +67,4 @@ s3=boto3.resource("s3")
 #s3.Bucket("BucketName").download_file("object_name","file_name")
 s3.Bucket("testingwithec2permission").download_file("getfile.txt","downgetfile.txt")
 ```
-![after get](Screenshot%20(99).png)
+![after get](https://github.com/niranjan-cell/Assignment/blob/6a09231cce91a896bac6439f2e2e23685d5eed26/Screenshot%20(99).png)
